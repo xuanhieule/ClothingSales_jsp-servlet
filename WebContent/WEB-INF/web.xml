@@ -1,12 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>WebSale1</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>WebSale1</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>AdminIndexUsersController</servlet-name>
+		<servlet-class>controller.AdminIndexUsersController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminIndexUsersController</servlet-name>
+		<url-pattern>/quan-ly-tai-khoan</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminAddCategoryController</servlet-name>
+		<servlet-class>controller.AdminAddCategoryController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminAddCategoryController</servlet-name>
+		<url-pattern>/them-danh-muc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminAddProductController</servlet-name>
+		<servlet-class>controller.AdminAddProductController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminAddProductController</servlet-name>
+		<url-pattern>/them-san-pham</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminBlockUserController</servlet-name>
+		<servlet-class>controller.AdminBlockUserController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminBlockUserController</servlet-name>
+		<url-pattern>/khoa-tai-khoan</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminDeleteCategoryController</servlet-name>
+		<servlet-class>controller.AdminDeleteCategoryController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminDeleteCategoryController</servlet-name>
+		<url-pattern>/xoa-danh-muc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminDeleteProductController</servlet-name>
+		<servlet-class>controller.AdminDeleteProductController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminDeleteProductController</servlet-name>
+		<url-pattern>/xoa-san-pham</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminEditCategoryController</servlet-name>
+		<servlet-class>controller.AdminEditCategoryController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminEditCategoryController</servlet-name>
+		<url-pattern>/chinh-sua-danh-muc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminEditProductController</servlet-name>
+		<servlet-class>controller.AdminEditProductController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminEditProductController</servlet-name>
+		<url-pattern>/sua-san-pham</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminIndexCategoryController</servlet-name>
+		<servlet-class>controller.AdminIndexCategoryController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminIndexCategoryController</servlet-name>
+		<url-pattern>/quan-ly-danh-muc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminIndexProductController</servlet-name>
+		<servlet-class>controller.AdminIndexProductController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AdminIndexProductController</servlet-name>
+		<url-pattern>/quan-ly-san-pham</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AuthenLoginController</servlet-name>
+		<servlet-class>controller.AuthenLoginController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AuthenLoginController</servlet-name>
+		<url-pattern>/dang-nhap</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AuthenLogoutController</servlet-name>
+		<servlet-class>controller.AuthenLogoutController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AuthenLogoutController</servlet-name>
+		<url-pattern>/dang-xuat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AuthenRegisterController</servlet-name>
+		<servlet-class>controller.AuthenRegisterController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AuthenRegisterController</servlet-name>
+		<url-pattern>/dang-ky</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicCartController</servlet-name>
+		<servlet-class>controller.PublicCartController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicCartController</servlet-name>
+		<url-pattern>/gio-hang</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicCheckoutController</servlet-name>
+		<servlet-class>controller.PublicCheckoutController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicCheckoutController</servlet-name>
+		<url-pattern>/thanh-toan</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicDetailProductController</servlet-name>
+		<servlet-class>controller.PublicDetailProductController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicDetailProductController</servlet-name>
+		<url-pattern>/chi-tiet-san-pham</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicIndexController</servlet-name>
+		<servlet-class>controller.PublicIndexController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicIndexController</servlet-name>
+		<url-pattern>/trang-chu</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicListProductsController</servlet-name>
+		<servlet-class>controller.PublicListProductsController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicListProductsController</servlet-name>
+		<url-pattern>/cua-hang</url-pattern>
+	</servlet-mapping>
+
 </web-app>
