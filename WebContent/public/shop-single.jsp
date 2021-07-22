@@ -32,7 +32,7 @@
 				<!-- HET IMAGES TRAI -->
 				<div class="summary col-sm-6 wow fadeInRightBig">
 					<h1 class="product-title"><%=pro.getName() %></h1>
-					<p class="price"><%=pro.getPrice() %>VNĐ</p>
+					<p class="price"><%=pro.getMoney()+ " VNĐ"%></p>
 					<form action="<%=request.getContextPath()%>/gio-hang" class="cart" method="post">
 					<input name="id" value=<%=pro.getId()%> type="hidden">
 						<div class="quantity">
@@ -139,7 +139,7 @@
 										src="<%=request.getContextPath()%>/images/products/<%=product.getImage()%>"
 										alt=""></span>
 									<h3><%=product.getName()%></h3>
-									<div class="price"><%=product.getPrice()%></div>
+									<div class="price"><%=product.getMoney()+ " VNĐ"%></div>
 								</a>
 								<div class="tren">
 									<a href=""> Thêm vào giỏ hàng <i

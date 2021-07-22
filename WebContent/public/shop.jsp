@@ -68,7 +68,7 @@
 							<span class="anh1sp"><img src="<%=request.getContextPath()%>/images/products/<%=pro.getImage()%>" alt=""></span>
 							<h3><%=pro.getName()%></h3>
 							<span class="cat"> <%=pro.getCategory_name()%></span>
-							<div class="price"><%=pro.getPrice()%></div>
+							<div class="price"><%=pro.getMoney()+ " VNĐ"%></div>
 						</a>
 						<div class="tren">
 							<a href=""> Thêm vào giỏ hàng <i class="fa fa-long-arrow-right"></i> </a>

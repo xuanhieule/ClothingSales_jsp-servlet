@@ -17,13 +17,7 @@ public class StringUtil {
 	}
 	//Định dạng tiền tệ
 	public String FormatVND(Double price) {
-		DecimalFormat format = new DecimalFormat("0.#");
-		format.format(price);
-		DecimalFormat dcf = new DecimalFormat("#.###");
-		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.getDefault());
-		dfs.setGroupingSeparator(',');
-		dcf.setDecimalFormatSymbols(dfs);
+		DecimalFormat dcf = new DecimalFormat("###,###");
 		return dcf.format(price);
 	}
-
 }

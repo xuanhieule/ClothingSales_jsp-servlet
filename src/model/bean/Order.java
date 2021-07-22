@@ -9,14 +9,14 @@ package model.bean;
 import java.util.ArrayList;
 
 public class Order {
-	private Users user;
+	private int id_user;
 	private ArrayList<Products> listProduct = new  ArrayList<Products>();
 	private double total=0;
 	public Order() {
 	}
-	public Order(ArrayList<Products>listProduct,Users user) {
+	public Order(ArrayList<Products>listProduct,int id_user) {
 		this.listProduct =listProduct;
-		this.user = user;
+		this.id_user = id_user;
 		for(Products pro : listProduct) {
 			total += pro.getTotal();
 		}
@@ -24,11 +24,11 @@ public class Order {
 			total+=30000;
 		}
 	}
-	public Users getUser() {
-		return user;
+	public int getUser() {
+		return id_user;
 	}
-	public void setUser(Users user) {
-		this.user = user;
+	public void setUser(int id_user) {
+		this.id_user = id_user;
 	}
 	public ArrayList<Products> getListProduct() {
 		return listProduct;

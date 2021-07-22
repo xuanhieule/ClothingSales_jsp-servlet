@@ -46,17 +46,17 @@
 							<tr class="cart_item">
 								<td class="product-thumbnail"><img src="<%=request.getContextPath()%>/images/products/<%=pro.getImage()%>" alt=""></td>
 								<td class="product-name"><%=pro.getName()%></td>
-								<td class="product-price"><%=pro.getPrice()%></td>
+								<td class="product-price"><%=pro.getMoney()+ " VNĐ"%></td>
 								<td class="product-quantity">
 									<div class="quantity">										
-										<a "<%=request.getContextPath()%>/giam-qty"><input type="button" class="plus" value="-"></a> 
+										<a href="<%=request.getContextPath()%>/giam-gio-hang?id=<%=pro.getId()%>"><input type="button" class="plus" value="-"></a> 
 										<input type="number" value="<%=pro.getQty()%>" class="qty">
-										<a "<%=request.getContextPath()%>/tang-qty"><input type="button" class="plus" value="+"></a> 
+										<a href="<%=request.getContextPath()%>/tang-gio-hang?id=<%=pro.getId()%>"><input type="button" class="plus" value="+"></a> 
 									</div>
 
 								</td>
-								<td class="product-subtotal"><%=pro.getTotal()%></td>
-								<td class="product-remove""><a href="<%=request.getContextPath()%>/xoa-san-pham?id=<%=pro.getId()%>"><i class="fa fa-times"></i></a></td>
+								<td class="product-subtotal"><%=pro.getTotalNVD()%></td>
+								<td class="product-remove""><a href="<%=request.getContextPath()%>/xoa-gio-hang?id=<%=pro.getId()%>"><i class="fa fa-times"></i></a></td>
 
 							</tr>
 							<%}} %>
@@ -66,7 +66,7 @@
 					<div class="actions">
 						<div class="row">
 							<div class="col-sm-2">
-								<input type="submit" class="update_cart" value="Tiếp tục mua sắm &#8594;">
+								<a href="<%=request.getContextPath()%>/trang-chu" class="update_cart">Tiếp tục mua sắm &#8594;</a>
 
 							</div>
 							<div class="col-sm-3">
@@ -92,21 +92,14 @@
 										<tbody>
 											<tr class="cart-subtotal">
 												<th> Tổng tiền sản phẩm</th>
-												<td> <%= (Double)session.getAttribute("total")%> VNĐ</td>	
+												<td> <%=session.getAttribute("total")%> VNĐ</td>	
 											</tr>
 											<tr class="shipping">
 												<th> Phí vận chuyển </th>
 												<td> 
 													<ul class="shipping_method">
 														<li>
-															<%
-																if((Double)session.getAttribute("total")>300000){
-																	out.print("<label> Miễn phí </label> <br/>");
-																}else{
-																	out.print("<label> 30.000 VNĐ </label> <br/>");
-																}
-															%>
-															
+															<label> <%=session.getAttribute("ship")%> </label> <br/>
 															<small>Hóa đơn trên 300k sẽ được miễn phí phí vận chuyển</small>
 														</li>
 
@@ -116,18 +109,16 @@
 											<tr class="order-total">
 												<th> Tổng tiền thanh toán </th>
 												<th> <%
-												if((Double)session.getAttribute("total")<300000){
-													out.print(((Double)session.getAttribute("total")+30000)+" VNĐ");
-												}else
-													out.print((Double)session.getAttribute("total")+" VNĐ");
-												%>></th>
+												if(session.getAttribute("total")!=null)
+													out.print(session.getAttribute("total")+" VNĐ");
+												%></th>
 											</tr>
 										
 
 										</tbody>
 									</table>
 									<div class="thanhtoan">
-										<a href="/thanh-toan" class="checkout-button"> Thanh toán <i class="fa fa-long-arrow-right"></i></a>
+										<a href="<%=request.getContextPath()%>/thanh-toan" class="checkout-button"> Thanh toán <i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>

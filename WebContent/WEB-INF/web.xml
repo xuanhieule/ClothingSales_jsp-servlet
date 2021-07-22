@@ -23,6 +23,8 @@
 		<url-pattern>/quan-ly-tai-khoan</url-pattern>
 	</servlet-mapping>
 	
+	
+	
 	<servlet>
 		<servlet-name>AdminAddCategoryController</servlet-name>
 		<servlet-class>controller.AdminAddCategoryController</servlet-class>
@@ -191,6 +193,34 @@
 	<servlet-mapping>
 		<servlet-name>PublicListProductsController</servlet-name>
 		<url-pattern>/cua-hang</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PublicCartRemoveItemController</servlet-name>
+		<servlet-class>controller.PublicCartRemoveItemController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicCartRemoveItemController</servlet-name>
+		<url-pattern>/xoa-gio-hang</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicCartIncreaseItemController</servlet-name>
+		<servlet-class>controller.PublicCartIncreaseItemController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicCartIncreaseItemController</servlet-name>
+		<url-pattern>/tang-gio-hang</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicCartDecreaseItemController</servlet-name>
+		<servlet-class>controller.PublicCartDecreaseItemController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PublicCartDecreaseItemController</servlet-name>
+		<url-pattern>/giam-gio-hang</url-pattern>
 	</servlet-mapping>
 
 </web-app>

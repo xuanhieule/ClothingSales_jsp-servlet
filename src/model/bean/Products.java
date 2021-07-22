@@ -6,6 +6,7 @@
  */
 package model.bean;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,13 +24,13 @@ public class Products {
 	private String category_name;
 	private int qty;
 	private double total;
+	private String money;
+	private String totalNVD;
 	Calendar cal = Calendar.getInstance();
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	DecimalFormat dcf = new DecimalFormat("###,###");
 	
-	public Products() {
-		
-		
-	}
+
 	
 	public Products(int id, int id_category, String name, String content, double price, double discount, String image) {
 		this.id = id;
@@ -39,14 +40,18 @@ public class Products {
 		this.price = price;
 		this.discount = discount;
 		this.image = image;
+		this.money = dcf.format(this.price);
 	}
 	public Products(int id, String name, String image, double price, int qty) {
+		
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.price = price;
 		this.qty = qty;
 		this.total = qty*price;
+		this.totalNVD = dcf.format(qty*price);
+		this.money = dcf.format(this.price);
 	}
 	public Products(int id, String category_name, String name, String content, double price, double discount, String image) {
 		this.id = id;
@@ -56,6 +61,8 @@ public class Products {
 		this.price = price;
 		this.discount = discount;
 		this.image = image;
+		this.totalNVD = dcf.format(qty*price);
+		this.money = dcf.format(this.price);
 	}
 
 	public Products(int id_category, String name, String content, double price, double discount, String image) {
@@ -65,6 +72,8 @@ public class Products {
 		this.price = price;
 		this.discount = discount;
 		this.image = image;
+		this.totalNVD = dcf.format(qty*price);
+		this.money = dcf.format(this.price);
 	}
 
 	public int getId() {
@@ -147,7 +156,21 @@ public class Products {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
 
+	public String getMoney() {
+		return money;
+	}
+	public void setMoney(String money) {
+		this.money = money;
+	}
+	
+	public String getTotalNVD() {
+		return dcf.format(qty*price);
+	}
+	public void setTotalNVD(String totalNVD) {
+		this.totalNVD = totalNVD;
+	}
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", id_category=" + id_category + ", name=" + name + ", content=" + content

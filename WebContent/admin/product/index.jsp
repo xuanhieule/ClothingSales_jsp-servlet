@@ -82,7 +82,7 @@
                         <th>Danh mục</th>
                         <th>Mô tả</th>
                         <th>Giá</th>
-                        <th>Giảm giá</th>
+                        <!-- <th>Giảm giá</th></td>  --><td>
                         <th>Chức năng</th>
                       </thead>
                       <tbody>
@@ -108,8 +108,8 @@
                               </div>
                            
                           </td>
-                          <td><%=x.getPrice()%></td>
-                          <td><%=x.getDiscount()%></td>
+                          <td><%=x.getMoney()%></td>
+                          <!-- <%=x.getDiscount()%></td>  --><td>
                           
                           <td>
                             <a href="<%=request.getContextPath()%>/sua-san-pham?id=<%=x.getId()%>"

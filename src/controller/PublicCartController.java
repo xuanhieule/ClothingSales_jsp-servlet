@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -46,6 +47,7 @@ public class PublicCartController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
+		DecimalFormat dcf = new DecimalFormat("###,###");
 		
 		
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -73,14 +75,21 @@ public class PublicCartController extends HttpServlet {
 	
 		// tính tổng tiền hàng
 		double total = 0;
+		String ship = "Miễn phí";
 		for(Products pro : listCart) {
 			total+= pro.getTotal();
 		}
+		if(total<300000) {
+			total+=30000;
+			ship = "30000 VNĐ";
+		}
 		System.out.println(listCart);
+		String money = dcf.format(total);
 		
 		
 		session.setAttribute("listCart", listCart);
-		session.setAttribute("total", total);
+		session.setAttribute("ship", ship);
+		session.setAttribute("total", money);
 		response.sendRedirect(request.getContextPath()+"/public/cart.jsp");
 		
 		
