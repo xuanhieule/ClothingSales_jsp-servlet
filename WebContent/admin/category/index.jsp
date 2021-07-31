@@ -10,6 +10,18 @@
                 <div class="card">
                   <div class="header">
                     <h4 class="title">Danh sách danh mục</h4>
+                    <%
+						String msg = request.getParameter("msg");
+						if("1".equals(msg)){
+							out.print("<h5 style=\"background: green; color: yellow; width:160px;  \"> Thêm thành công!!!</h5>");
+						}
+						if("2".equals(msg)){
+							out.print("<h5 style=\"background: green; color: yellow; width:160px;  \"> sửa thành công!!!</h5>");
+						}
+						if("3".equals(msg)){
+							out.print("<h5 style=\"background: green; color: yellow; width:160px;  \"> xóa thành công!!!</h5>");
+						}
+					%>
                     <% if(request.getAttribute("status")!=null)
                         out.print("<p class=\"category success\">" + request.getAttribute("status") + "</p>");
                     %>

@@ -10,6 +10,12 @@
                 <div class="card">
                   <div class="header">
                     <h4 class="title">Thêm sản phẩm</h4>
+                                        <%
+						String error = request.getParameter("error");
+						if("1".equals(error)){
+							out.print("<h5 style=\"background: red; color: yellow; width:160px;  \"> Thêm thất bại</h5>");
+					}%>
+                    
                   </div>
                   <div class="content">
                  <form action="<%=request.getContextPath()%>/them-san-pham" method="post" enctype="multipart/form-data">

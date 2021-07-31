@@ -3,11 +3,14 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.bean.Users;
 import model.dao.UsersDao;
 
 /**
@@ -31,6 +34,13 @@ public class AdminBlockUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// phân quyền admin đc vào
+		HttpSession session = request.getSession();
+		Users userLogin = (Users) session.getAttribute("userLogin");
+		if (!"admin".equals(userLogin.getEmail())) {
+			response.sendRedirect(request.getContextPath() + "/trang-chu");
+			return;
+		}
 		doPost(request, response);
 	}
 
@@ -42,7 +52,7 @@ public class AdminBlockUserController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
+		
 		int id = Integer.parseInt(request.getParameter("id"));
 		int action = Integer.parseInt(request.getParameter("action"));
 		if (action == 0)
@@ -52,9 +62,10 @@ public class AdminBlockUserController extends HttpServlet {
 		UsersDao userDao = new UsersDao();
 		int user = userDao.action(id, action);
 		if (user > 0) {
-			response.sendRedirect(request.getContextPath() + "/quan-ly-tai-khoan");
+			response.sendRedirect(request.getContextPath() + "/quan-ly-tai-khoan?msg=3");
 		} else {
-			out.print("Lỗi");
+			RequestDispatcher rd = request.getRequestDispatcher("admin/index.jsp?error=3");
+			rd.forward(request, response);
 		}
 
 	}

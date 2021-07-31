@@ -8,7 +8,9 @@
 			if (session.getAttribute("userLogin") != null) {
 				Users userLogin = (Users) session.getAttribute("userLogin");
 			%>
-			<a href="cart.jsp" class="cctop"> <%=userLogin.getName()%>
+			<a href="cart.jsp" class="cctop"> <%=userLogin.getName()%> </a>
+			<a href="/dang-xuat" class="cctop"> logout </a>
+				
 			</a> <a href="cart.jsp" class="cctop"> <i class="fa fa-shopping-cart"></i>
 				Giỏ hàng
 			</a>

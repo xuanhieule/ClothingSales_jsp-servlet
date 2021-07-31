@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import model.bean.Products;
 import util.ConnectDBLibrary;
+import util.DefineUtil;
 
 public class ProductsDao {
 	private ConnectDBLibrary connectDB;
@@ -26,13 +27,15 @@ public class ProductsDao {
 	public ProductsDao() {
 		connectDB = new ConnectDBLibrary();
 	}
-	public ArrayList<Products> getAllProducts(){
+	public ArrayList<Products> getAllProducts(int offset){
 		ArrayList<Products> products = new ArrayList<Products>();
 		con = connectDB.getConnection();
-		String sql = "SELECT P.id, C.name, P.name,P.content,P.price,P.discount,P.image FROM product AS P INNER JOIN category AS C ON P.id_category = C.id_category";
+		String sql = "SELECT P.id, C.name, P.name,P.content,P.price,P.discount,P.image FROM product AS P INNER JOIN category AS C ON P.id_category = C.id_category LIMIT ?, ?";
 		try {
-			st = con.createStatement();
-			rs = st.executeQuery(sql);
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, offset); //offset
+			pst.setInt(2, DefineUtil.NUMBER_PER_PAGE); // number item in 1 page
+			rs = pst.executeQuery();
 			while(rs.next()) {
 				Products productTemp = new Products(rs.getInt("P.id"),rs.getString("C.name"), rs.getNString("P.name"),rs.getNString("content"),rs.getDouble("price"),rs.getDouble("discount"),rs.getString("image"));
 				products.add(productTemp);
@@ -40,7 +43,7 @@ public class ProductsDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			connectDB.close(con,st,rs);
+			connectDB.close(con, pst);
 		}
 		return products;
 	}
@@ -62,15 +65,16 @@ public class ProductsDao {
 		}
 		return proTemp;
 	}
-	public ArrayList<Products> getProductsByCategory(int id){
+	public ArrayList<Products> getProductsByCategoryPagination(int id, int offset){
 		ArrayList<Products> products = new ArrayList<Products>();
 		con = connectDB.getConnection();
-		String sql = "SELECT P.id, C.name, P.name,P.content,P.price,P.discount,P.image FROM product AS P INNER JOIN category AS C ON P.id_category = C.id_category WHERE P.id_category= ?";
+		String sql = "SELECT P.id, C.name, P.name,P.content,P.price,P.discount,P.image FROM product AS P INNER JOIN category AS C ON P.id_category = C.id_category WHERE P.id_category= ? ORDER BY P.id DESC LIMIT ?, ?";
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
+			pst.setInt(2, offset); //offset
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE); // number item in 1 page
 			rs = pst.executeQuery();
-			System.out.println(pst);
 			while(rs.next()) {
 				Products productTemp = new Products(rs.getInt("P.id"),rs.getString("C.name"), rs.getNString("P.name"),rs.getNString("content"),rs.getDouble("price"),rs.getDouble("discount"),rs.getString("image"));
 				products.add(productTemp);
@@ -144,5 +148,23 @@ public class ProductsDao {
 		}
 		return result;
 	}
-
+	public int numberOfItems(){
+		
+		con = connectDB.getConnection();
+		String sql = "SELECT COUNT(*) AS count FROM product";
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if(rs.next()) {
+				int count = rs.getInt("count");
+				return count;
+			
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			connectDB.close(con,st,rs);
+		}
+		return 0;
+	}
 }

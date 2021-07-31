@@ -20,36 +20,38 @@ import model.dao.ProductsDao;
 @WebServlet("/PublicDetailProductController")
 public class PublicDetailProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ArrayList<Products> listProductRecent = new ArrayList<Products>(); 
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PublicDetailProductController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	ArrayList<Products> listProductRecent = new ArrayList<Products>();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public PublicDetailProductController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		int id = Integer.parseInt(request.getParameter("id"));
 		ProductsDao proDao = new ProductsDao();
 		Products infor = proDao.getProductById(id);
-		if(listProductRecent.size()>0) {
-			boolean check= true;
-			for(Products procheck: listProductRecent) {
-				if(procheck.getId() == id) {
-					check=false;
+		if (listProductRecent.size() > 0) {
+			boolean check = true;
+			for (Products procheck : listProductRecent) {
+				if (procheck.getId() == id) {
+					check = false;
 					break;
 				}
 			}
-			if(check==true) listProductRecent.add(infor);
-		}
-		else {
+			if (check == true)
+				listProductRecent.add(infor);
+		} else {
 			listProductRecent.add(infor);
 		}
 		request.setAttribute("infor", infor);
@@ -60,9 +62,11 @@ public class PublicDetailProductController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 	}

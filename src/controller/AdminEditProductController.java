@@ -9,9 +9,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.bean.Category;
 import model.bean.Products;
+import model.bean.Users;
 import model.dao.CategoryDao;
 import model.dao.ProductsDao;
 import util.FileUtil;
@@ -22,21 +24,30 @@ import util.FileUtil;
 @MultipartConfig
 public class AdminEditProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminEditProductController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AdminEditProductController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
+		// phân quyền admin đc vào
+		HttpSession session = request.getSession();
+		Users userLogin = (Users) session.getAttribute("userLogin");
+		if (!"admin".equals(userLogin.getEmail())) {
+			response.sendRedirect(request.getContextPath() + "/trang-chu");
+			return;
+		}
 		// lấy id từ jsp truyền qua url
 		int id = Integer.parseInt(request.getParameter("id"));
 		ProductsDao productDao = new ProductsDao();
@@ -50,9 +61,11 @@ public class AdminEditProductController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		ProductsDao productDAO = new ProductsDao();
@@ -63,15 +76,14 @@ public class AdminEditProductController extends HttpServlet {
 		Double price = Double.parseDouble(request.getParameter("price"));
 		Double discount = Double.parseDouble(request.getParameter("discount"));
 		String des = request.getParameter("des");
-		
-		Products product = new Products(id,cat, name,des, price, discount, fileName);
+
+		Products product = new Products(id, cat, name, des, price, discount, fileName);
 		System.out.println(product);
 		if (productDAO.editProduct(product) > 0) {
-			response.sendRedirect(request.getContextPath() + "/quan-ly-san-pham");
+			response.sendRedirect(request.getContextPath() + "/quan-ly-san-pham?msg=2");
 			return;
 		}
-		request.setAttribute("error", "Có lỗi xảy ra, sửa thất bại");
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/product/edit.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/admin/product/edit.jsp?error=2");
 		rd.forward(request, response);
 
 	}

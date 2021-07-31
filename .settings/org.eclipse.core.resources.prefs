@@ -13,6 +13,7 @@ encoding//src/controller/AdminIndexCategoryController.java=UTF-8
 encoding//src/controller/AdminIndexProductController.java=UTF-8
 encoding//src/controller/AdminIndexUsersController.java=UTF-8
 encoding//src/controller/AuthenLoginController.java=UTF-8
+encoding//src/controller/AuthenLogoutController.java=UTF-8
 encoding//src/controller/AuthenRegisterController.java=UTF-8
 encoding//src/controller/PublicCartController.java=UTF-8
 encoding//src/controller/PublicCartDecreaseItemController.java=UTF-8

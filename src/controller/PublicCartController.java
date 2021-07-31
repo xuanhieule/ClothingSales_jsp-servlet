@@ -21,78 +21,80 @@ import model.dao.ProductsDao;
 public class PublicCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Products> listCart = new ArrayList<Products>();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PublicCartController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.setAttribute("listCart", listCart);
-		response.sendRedirect("/public/cart.jsp");
-		
+	public PublicCartController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("listCart", listCart);
+		response.sendRedirect("/public/cart.jsp");
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		DecimalFormat dcf = new DecimalFormat("###,###");
-		
-		
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		int qty = Integer.parseInt(request.getParameter("qty"));
 		ProductsDao proDao = new ProductsDao();
 		Products product = proDao.getProductById(id);
-		
+
 		boolean check = false;
-		if(product!=null) {
-			if(listCart.size()>0) {
-				for(Products procheck : listCart) {
-					if(procheck.getId() == id) {
-						procheck.setQty(procheck.getQty()+qty);
-						procheck.setTotal(procheck.getQty()*procheck.getPrice());
+		if (product != null) {
+			if (listCart.size() > 0) {
+				for (Products procheck : listCart) {
+					if (procheck.getId() == id) {
+						procheck.setQty(procheck.getQty() + qty);
+						procheck.setTotal(procheck.getQty() * procheck.getPrice());
 						check = true;
 						break;
 					}
 				}
 			}
 			if (!check) {
-				Products proCart = new Products(product.getId(), product.getName(),product.getImage(),product.getPrice(), qty);
+				Products proCart = new Products(product.getId(), product.getName(), product.getImage(),
+						product.getPrice(), qty);
 				listCart.add(proCart);
 			}
 		}
-	
+
 		// tính tổng tiền hàng
 		double total = 0;
-		String ship = "Miễn phí";
-		for(Products pro : listCart) {
-			total+= pro.getTotal();
+		String ship = "Free ship";
+		for (Products pro : listCart) {
+			total += pro.getTotal();
 		}
-		if(total<300000) {
-			total+=30000;
-			ship = "30000 VNĐ";
+		if (total < 100) {
+			total += 30;
+			ship = "$30";
 		}
 		System.out.println(listCart);
 		String money = dcf.format(total);
-		
-		
+
 		session.setAttribute("listCart", listCart);
 		session.setAttribute("ship", ship);
 		session.setAttribute("total", money);
-		response.sendRedirect(request.getContextPath()+"/public/cart.jsp");
-		
-		
+		response.sendRedirect(request.getContextPath() + "/public/cart.jsp");
+
 	}
 
 }

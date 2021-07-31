@@ -9,6 +9,12 @@
                 <div class="card">
                   <div class="header">
                     <h4 class="title">Sửa thông tin danh mục</h4>
+                                        <%
+						String error = request.getParameter("error");
+						if("2".equals(error)){
+							out.print("<h5 style=\"background: red; color: yellow; width:160px;  \"> Sửa thất bại</h5>");
+					}%>
+                    
                   </div>
                    <%
                     	if(request.getAttribute("catById")!=null){

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import model.bean.Users;
 import util.ConnectDBLibrary;
+import util.DefineUtil;
 
 public class UsersDao {
 	private ConnectDBLibrary connectDB;
@@ -27,13 +28,15 @@ public class UsersDao {
 		connectDB = new ConnectDBLibrary();
 	}
 	
-	public ArrayList<Users> getAllUsers(){
+	public ArrayList<Users> getAllUsersByPage(int offset){
 		ArrayList<Users> users = new ArrayList<Users>();
 		con = connectDB.getConnection();
-		String sql = "SELECT * FROM user";
+		String sql = "SELECT * FROM user ORDER BY id DESC LIMIT ?,?";
 		try {
-			st = con.createStatement();
-			rs = st.executeQuery(sql);
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, offset);
+			pst.setInt(2, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
 			while(rs.next()) {
 				Users userTemp = new Users(rs.getInt("id"),rs.getNString("name"), rs.getString("email"), rs.getString("phone"), rs.getString("address"), rs.getString("password"), rs.getInt("status"));
 				users.add(userTemp);
@@ -41,7 +44,7 @@ public class UsersDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			connectDB.close(con,st,rs);
+			connectDB.close(con,pst);
 		}
 		return users;
 	}
@@ -106,6 +109,23 @@ public class UsersDao {
 			connectDB.close(con, pst);
 		}
 		return result;
+	}
+	public int numberOfUsers() {
+		con = connectDB.getConnection();
+		String sql = "SELECT COUNT(*) AS count FROM user";
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if(rs.next()) {
+				int count = rs.getInt("count");
+				return count;
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				connectDB.close(con,st,rs);
+			}
+		return 0;
 	}
 
 	

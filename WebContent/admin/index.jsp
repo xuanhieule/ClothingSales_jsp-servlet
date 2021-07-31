@@ -11,6 +11,16 @@
 				<div class="card">
 					<div class="header">
 						<h4 class="title">Danh sách tài khoản</h4>
+						<%
+						String error = request.getParameter("error");
+						String msg = request.getParameter("msg");
+						if("1".equals(msg)){
+							out.print("<h5 style=\"background: green; color: yellow; width:160px;  \"> Thêm thành công!!!</h5>");
+						}
+						if("1".equals(error)){
+							out.print("<h5 style=\"background:\"yellow\"; color:\"red\";  \"> id khoogn tồn tại</h5>");
+						}%>
+						
 
 						<form action="" method="post">
 							<div class="row">
@@ -50,8 +60,9 @@
 							</thead>
 							<tbody>
 								<%
+								ArrayList<Users> allUser = null;
 								if (request.getAttribute("allUser") != null) {
-									ArrayList<Users> allUser = new ArrayList<Users>((ArrayList<Users>) request.getAttribute("allUser"));
+									allUser = new ArrayList<Users>((ArrayList<Users>) request.getAttribute("allUser"));
 									for (Users x : allUser) {
 								%>
 								<tr>
@@ -81,9 +92,25 @@
 							</tbody>
 						</table>
 						<div class="text-center">
+						<%
+						int currentPage = (Integer)request.getAttribute("currentPage");
+						int numberOfPages = (Integer)request.getAttribute("numberOfPages");
+						if(allUser != null && allUser.size() > 0){
+						%>
+						
 							<ul class="pagination">
-								<li><a href="?p=0" title="">1</a></li>
+							<%	
+	                                	String active ="";
+	                                	for(int i = 1 ; i <= numberOfPages; i++){
+	                                		%>
+							
+								<li><a href="<%=request.getContextPath()%>/quan-ly-tai-khoan?&page=<%=i%>" title=""><%=i%></a></li>
+									<%
+	                                	}
+	                                %>
+								
 							</ul>
+							<%} %>
 						</div>
 					</div>
 				</div>
